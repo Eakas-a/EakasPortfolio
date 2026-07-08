@@ -16,12 +16,22 @@ initMusic() {
   if (typeof window === 'undefined' || this.music) return;
   this.music = new Audio('assets/aladdin.mp3');
   this.music.loop = true;
+
+  // Try real autoplay first (works occasionally, e.g. high Chrome MEI).
   this.music.play().catch(() => {
-    const tryPlay = () => {
-      if (this.musicOn()) this.music?.play().catch(() => {});
+    // Blocked — fall back to a silent autoplay, which browsers always allow,
+    // then unmute the instant the user does ANYTHING on the page.
+    this.music!.muted = true;
+    this.music!.play().catch(() => {});
+
+    const unlock = () => {
+      if (!this.music) return;
+      this.music.muted = false;
+      if (this.musicOn()) this.music.play().catch(() => {});
+      events.forEach(ev => document.removeEventListener(ev, unlock));
     };
-    document.addEventListener('click', tryPlay, { once: true });
-    document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
+    const events = ['click', 'touchstart', 'keydown', 'scroll', 'mousemove'];
+    events.forEach(ev => document.addEventListener(ev, unlock, { once: true, passive: true }));
   });
 }
 
