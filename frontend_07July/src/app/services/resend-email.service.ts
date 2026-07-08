@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class ResendEmailService {
-  private readonly endpoint = 'http://localhost:8080/api/send-email';
+  //private readonly endpoint = 'http://localhost:8080/api/send-email';
+  private readonly endpoint = 'https://eakasportfoliobackend.onrender.com/api/send-email';
   private readonly to = 'eakas000@gmail.com';
   // Resend requires the "from" to be on a domain you've verified in Resend.
   // Swap this for your verified sending address/domain.
