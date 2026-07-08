@@ -12,33 +12,35 @@ export class JourneyAudioService {
   musicOn = signal(true);
 private music: HTMLAudioElement | null = null;
 
+private musicUnlocked = false;
+
 initMusic() {
   if (typeof window === 'undefined' || this.music) return;
   this.music = new Audio('assets/aladdin.mp3');
   this.music.loop = true;
 
-  // Try real autoplay first (works occasionally, e.g. high Chrome MEI).
-  this.music.play().catch(() => {
-    // Blocked — fall back to a silent autoplay, which browsers always allow,
-    // then unmute the instant the user does ANYTHING on the page.
-    this.music!.muted = true;
-    this.music!.play().catch(() => {});
+  // Skip straight to muted autoplay — browsers always allow this, no gesture needed.
+  this.music.muted = true;
+  this.music.play().catch(() => {});
 
-    const unlock = () => {
-      if (!this.music) return;
-      this.music.muted = false;
-      if (this.musicOn()) this.music.play().catch(() => {});
-      events.forEach(ev => document.removeEventListener(ev, unlock));
-    };
-    const events = ['click', 'touchstart', 'keydown', 'scroll', 'mousemove'];
-    events.forEach(ev => document.addEventListener(ev, unlock, { once: true, passive: true }));
-  });
+  // On the first real gesture, just flip muted off. Do NOT call .play() again —
+  // that re-triggers the autoplay check and can re-pause the track.
+  const unlock = () => {
+    if (this.musicUnlocked || !this.music) return;
+    this.musicUnlocked = true;
+    this.music.muted = false;
+    if (!this.musicOn()) this.music.pause();
+    events.forEach(ev => document.removeEventListener(ev, unlock));
+  };
+  const events = ['click', 'touchstart', 'keydown', 'pointerdown'];
+  events.forEach(ev => document.addEventListener(ev, unlock, { once: true, passive: true }));
 }
 
 toggleMusic() {
   this.musicOn.update(v => !v);
   if (!this.music) return;
   if (this.musicOn()) {
+    if (this.musicUnlocked) this.music.muted = false;
     this.music.play().catch(() => {});
   } else {
     this.music.pause();
