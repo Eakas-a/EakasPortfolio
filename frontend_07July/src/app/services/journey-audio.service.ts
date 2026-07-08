@@ -9,7 +9,7 @@ import { Injectable, signal } from '@angular/core';
 export class JourneyAudioService {
   soundOn = signal(false);
 
-  musicOn = signal(true);
+  musicOn = signal(false);
 private music: HTMLAudioElement | null = null;
 
 private musicUnlocked = false;
