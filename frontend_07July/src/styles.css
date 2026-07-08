@@ -1,0 +1,325 @@
+/* ============================================
+   EAKAS PORTFOLIO – GLOBAL STYLES
+   Playful color-blocked / hard-shadow system
+   ============================================ */
+
+:root {
+  /* Ink + paper */
+  --ink: #17171F;
+  --ink-soft: #4A4A57;
+  --paper: #FBF6EC;
+  --surface: #FFFFFF;
+  --surface-alt: #FFF1CE;
+  --sky-bg: radial-gradient(ellipse 76% 48% at 50% 52%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.24) 36%, transparent 72%),
+    linear-gradient(135deg, rgba(186,104,200,0.22) 0%, rgba(100,181,246,0.26) 28%, rgba(129,199,132,0.24) 52%, rgba(255,213,79,0.26) 74%, rgba(255,138,101,0.22) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='500' viewBox='0 0 900 500'%3E%3Cpath d='M120 140 Q150 90 190 110 Q220 70 270 95 Q305 55 345 95 Q385 80 410 125 Q455 95 500 120 Q545 85 590 118 Q620 90 660 112 Q690 75 740 102 Q770 78 810 110 L810 160 Q760 150 720 150 Q680 160 640 154 Q585 170 540 152 Q500 180 Q460 160 Q420 178 Q370 160 Q330 176 Q285 154 Q250 174 Q200 154 Q170 166 Q120 150 Z' fill='rgba(255,255,255,0.74)'/%3E%3Cpath d='M90 250 Q130 210 180 232 Q220 190 270 220 Q315 182 360 218 Q405 188 450 220 Q490 200 530 222 Q565 188 615 220 Q650 192 700 214 Q745 182 795 218 L795 270 Q745 250 705 248 Q655 258 Q610 248 Q560 270 Q510 252 Q455 278 Q410 250 Q360 270 Q315 248 Q270 268 Q220 248 Q165 266 Q110 244 Z' fill='rgba(255,255,255,0.58)'/%3E%3C/svg%3E");
+
+  /* Color blocks */
+  --yellow: #FFD54F;
+  --yellow-deep: #F5B400;
+  --coral: #FF8A65;
+  --coral-deep: #F1613A;
+  --green: #81C784;
+  --green-deep: #4C9A52;
+  --blue: #64B5F6;
+  --blue-deep: #2E93E6;
+  --purple: #BA68C8;
+  --purple-deep: #9B4CAC;
+
+  --line: #17171F;
+  --line-soft: rgba(23, 23, 31, 0.14);
+
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 26px;
+
+  --bw: 2.5px;
+  --shadow-sm: 4px 4px 0 var(--line);
+  --shadow: 7px 7px 0 var(--line);
+  --shadow-lg: 10px 10px 0 var(--line);
+
+  /* legacy aliases kept so any stray references still resolve */
+  --primary: var(--purple);
+  --primary-light: var(--purple);
+  --primary-dark: var(--purple-deep);
+  --accent: var(--green);
+  --accent-light: var(--green);
+  --bg: var(--paper);
+  --bg-card: var(--surface);
+  --bg-card-hover: var(--surface);
+  --border: var(--line-soft);
+  --border-hover: var(--line);
+  --text: var(--ink);
+  --text-muted: var(--ink-soft);
+  --text-dim: #7A7A87;
+  --gradient: linear-gradient(135deg, var(--coral) 0%, var(--purple) 55%, var(--blue) 100%);
+  --shadow-glow: var(--shadow);
+  --radius-lg-legacy: var(--radius-lg);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* background: var(--paper);
+  background-image: var(--sky-bg); */
+  background: linear-gradient(180deg, #eaf6ff 0%, #cfeaff 55%, var(--paper) 100%);
+  background-attachment: fixed;
+  color: var(--ink);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--ink); border-radius: 0; border: 2px solid var(--paper); }
+
+/* Utility */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+
+}
+
+section {
+  scroll-margin-top: 80px;
+  z-index: 1;
+  padding: 80px 0;
+  background-image: linear-gradient(
+      90deg,
+      #BA68C8 0%,
+      #64B5F6 25%,
+      #81C784 50%,
+      #FFD54F 75%,
+      #FF8A65 100%
+    ); 
+  transition: opacity 0.15s ease; 
+  position: relative;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.section-title {
+  font-size: clamp(30px, 4.2vw, 46px);
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--ink);
+  position: relative;
+  display: inline-block;
+}
+
+.section-subtitle {
+  color: var(--ink-soft);
+  font-size: 16px;
+  margin-bottom: 56px;
+  max-width: 540px;
+  font-weight: 500;
+}
+
+/* Chip / badge — cycles through the palette so lists of tags read as
+   confetti rather than one flat tone */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 14px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: 0.2px;
+  background: var(--surface);
+  color: var(--ink);
+  border: var(--bw) solid var(--line);
+  box-shadow: 2px 2px 0 var(--line);
+}
+
+.hero-stack .badge:nth-of-type(6n+1), .stack-pills .badge:nth-of-type(6n+1), .group-tags .badge:nth-of-type(6n+1) { background: var(--yellow); }
+.hero-stack .badge:nth-of-type(6n+2), .stack-pills .badge:nth-of-type(6n+2), .group-tags .badge:nth-of-type(6n+2) { background: var(--blue); }
+.hero-stack .badge:nth-of-type(6n+3), .stack-pills .badge:nth-of-type(6n+3), .group-tags .badge:nth-of-type(6n+3) { background: var(--coral); }
+.hero-stack .badge:nth-of-type(6n+4), .stack-pills .badge:nth-of-type(6n+4), .group-tags .badge:nth-of-type(6n+4) { background: var(--green); }
+.hero-stack .badge:nth-of-type(6n+5), .stack-pills .badge:nth-of-type(6n+5), .group-tags .badge:nth-of-type(6n+5) { background: var(--purple); color: #fff; }
+.hero-stack .badge:nth-of-type(6n+6), .stack-pills .badge:nth-of-type(6n+6), .group-tags .badge:nth-of-type(6n+6) { background: var(--surface-alt); }
+
+.badge.ai {
+  background: var(--purple);
+  color: #fff;
+}
+
+/* Buttons — chunky, bordered, hard-shadow, press on click */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+  cursor: pointer;
+  border: var(--bw) solid var(--line);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--line);
+}
+
+.btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 var(--line);
+}
+
+.btn-primary {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.btn-ghost {
+  background: var(--surface);
+  border: var(--bw) solid var(--line);
+  color: var(--ink);
+}
+
+/* Card base */
+.card {
+  background: var(--surface);
+  border: var(--bw) solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 11px 11px 0 var(--line);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(4deg); }
+}
+
+.animate-in {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.fade-in-up {
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(20px);
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Marker-highlight text — replaces the old purple gradient-text with a
+   hand-highlighted look, in keeping with the flat illustrated palette */
+.gradient-text {
+  position: relative;
+  color: var(--ink);
+  font-weight: 700;
+  white-space: nowrap;
+  z-index: 0;
+}
+
+.gradient-text::before {
+  content: '';
+  position: absolute;
+  left: -4px; right: -4px; bottom: 2px;
+  height: 42%;
+  background: var(--yellow);
+  z-index: -1;
+  transform: rotate(-1deg);
+  border-radius: 3px;
+}
+
+/* Decorative doodle shapes — reusable, purely visual */
+.doodle {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================
+   CLOUD PANEL — makes a section's content container
+   read as a big fluffy cloud, matching the sky theme
+   ============================================ */
+.cloud-panel {
+  position: relative;
+  z-index: 2;
+  background: #ffffff;
+  border-radius: 90px 130px 100px 150px / 130px 90px 150px 100px;
+  box-shadow:
+    0 40px 70px rgba(23, 23, 31, 0.07),
+    0 0 0 var(--bw) var(--line) inset;
+  padding: 64px clamp(24px, 6vw, 72px) 56px;
+}
+.cloud-panel::before,
+.cloud-panel::after {
+  content: '';
+  position: absolute;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 var(--bw) var(--line) inset;
+  z-index: -1;
+}
+.cloud-panel::before { width: 150px; height: 110px; top: -56px; left: 10%; }
+.cloud-panel::after  { width: 110px; height: 86px;  top: -40px; right: 14%; }
+
+@keyframes cloudDrift {
+  from { transform: translateX(-6%); }
+  to   { transform: translateX(6%); }
+}
+@keyframes birdFly {
+  0%   { transform: translate(-10vw, 0); opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  100% { transform: translate(110vw, -18px); opacity: 0; }
+}
+
