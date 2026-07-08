@@ -17,9 +17,11 @@ initMusic() {
   this.music = new Audio('assets/aladdin.mp3');
   this.music.loop = true;
   this.music.play().catch(() => {
-    document.addEventListener('click', () => {
-      if (this.musicOn()) this.music?.play();
-    }, { once: true });
+    const tryPlay = () => {
+      if (this.musicOn()) this.music?.play().catch(() => {});
+    };
+    document.addEventListener('click', tryPlay, { once: true });
+    document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
   });
 }
 
