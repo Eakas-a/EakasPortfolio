@@ -40,10 +40,10 @@ interface LazyTab {
   `,
   styles: [`
     .lazy-bar {
-      position: fixed; top: 18px; right: 18px;
-      z-index: 10000; display: flex; flex-direction: column; align-items: flex-start;
-      gap: 8px; pointer-events: auto;
-    }
+  position: fixed; top: 18px; right: 18px;
+  z-index: 10000; display: flex; flex-direction: column; align-items: flex-start;
+  gap: 8px; pointer-events: none;
+}
    
     .collapse-btn {
       width: 42px; height: 42px; border-radius: 50%;
@@ -53,11 +53,12 @@ interface LazyTab {
       position: relative; z-index: 10001; pointer-events: auto;
     }
     .lazy-body {
-      background: var(--surface); border: var(--bw) solid var(--line);
-      border-radius: var(--radius); box-shadow: var(--shadow);
-      padding: 12px; display: flex; flex-direction: column; gap: 6px;
-      width: 168px; margin-top: 6px;
-    }
+  background: var(--surface); border: var(--bw) solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 12px; display: flex; flex-direction: column; gap: 6px;
+  width: 168px; margin-top: 6px;
+  pointer-events: auto;
+}
     .lazy-title {
       font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 700;
       color: var(--ink-soft); margin-bottom: 4px; line-height: 1.3;
@@ -74,7 +75,6 @@ interface LazyTab {
     .lazy-tab.sound.active { background: var(--green); }
     .tab-icon { font-size: 15px; }
     @media (max-width: 900px) {
-      .lazy-bar { left: 10px; }
       .lazy-body { width: 148px; }
     }
   `]
